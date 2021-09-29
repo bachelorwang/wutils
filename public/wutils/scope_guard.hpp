@@ -7,7 +7,6 @@ template <typename TFunctionType, bool TNoexcept>
 class scope_guard final {
  public:
   scope_guard() = delete;
-  scope_guard(TFunctionType& fn) : function_(fn) {}
   scope_guard(TFunctionType&& fn)
       : function_(std::forward<TFunctionType>(fn)) {}
   ~scope_guard() noexcept(true) {
