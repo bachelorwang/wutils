@@ -10,7 +10,7 @@ class scope_guard final {
   scope_guard(TFunctionType& fn) : function_(fn) {}
   scope_guard(TFunctionType&& fn)
       : function_(std::forward<TFunctionType>(fn)) {}
-  ~scope_guard() noexcept(false) {
+  ~scope_guard() noexcept(true) {
     if (!dismissed_) {
       if (TNoexcept) {
         function_();
