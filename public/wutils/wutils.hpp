@@ -1,4 +1,5 @@
 #pragma once
+#include "wutils/pod.hpp"
 
 namespace wutils {
 
