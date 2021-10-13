@@ -15,19 +15,15 @@ static constexpr size_t align(size_t n, size_t m) {
   return (n + m - 1) & ~(m - 1);
 }
 
-template <typename TElements, typename TSizeIndexes, typename TOffsetIndexes>
+template <typename TElements, typename TSizeIndexes>
 struct layout_impl;
 
-template <typename... TElements,
-          size_t... TSizeIndexes,
-          size_t... TOffsetIndexes>
+template <typename... TElements, size_t... TSizeIndexes>
 struct layout_impl<std::tuple<TElements...>,
-                   std::index_sequence<TSizeIndexes...>,
-                   std::index_sequence<TOffsetIndexes...>> {
+                   std::index_sequence<TSizeIndexes...>> {
   enum {
     NumTypes = sizeof...(TElements),
     NumSizes = sizeof...(TSizeIndexes),
-    NumOffsets = sizeof...(TOffsetIndexes)
   };
 
   static_assert(NumTypes > 0);
@@ -78,7 +74,6 @@ struct layout_impl<std::tuple<TElements...>,
 
 template <typename... Ts>
 using layout = detail::layout_impl<std::tuple<Ts...>,
-                                   std::make_index_sequence<sizeof...(Ts)>,
                                    std::make_index_sequence<sizeof...(Ts)>>;
 
 }  // namespace wutils
